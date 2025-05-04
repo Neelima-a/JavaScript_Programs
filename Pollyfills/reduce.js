@@ -18,3 +18,5 @@ const sumArr = arr.myReduce((acc, cur) => {
 }, 0);
 
 console.log(sumArr);
+
+arr.unshift(arr.pop());
