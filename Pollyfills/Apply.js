@@ -25,9 +25,13 @@ Function.prototype.myApply = function (context = {}, args = []) {
   if (!Array.isArray(args)) {
     throw new TypeError("Create List Array called on non object");
   }
-  context.fn = this;
-  const result = context.fn(...args); // Execute function
-  delete context.fn; // Remove temporary function property
+  let newContext = context || globalThis;
+  let newProp = Symbol();
+  newContext[newProp] = this;
+
+  let result = newContext[newProp](...args); // Execute function
+  delete newContext[newProp]; // Remove temporary function property
+
   return result;
 };
 
